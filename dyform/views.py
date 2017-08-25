@@ -8,8 +8,8 @@ def index(request):
 def create_survey(request):
     created = False
     if request.method == 'POST':
-        form = SurveyForm(data=request.POST)
         if form.is_valid():
+            form = SurveyForm(data=request.POST)
             created = True
             survey = form.save(commit=False)
             survey.save()
@@ -22,13 +22,17 @@ def create_survey(request):
     return render(request, 'dyform/create_survey.html', {'form': form, 'created': created})
 
 def edit_survey(request, survey_id):
+    survey = get_object_or_404(Survey,  pk=survey_id)
+    print(survey)
     if request.method == 'POST':
-        form = QuestionForm(survey_id=survey_id, data=request.POST, extra=request.POST.get('extra_question_count'))
+        form = QuestionForm(survey=survey, data=request.POST, extra=request.POST.get('extra_question_count'))
         if form.is_valid():
             question_form = form.save(commit=False)
             question_form.save()
         else:
             print(form.errors)
     else:
-        form = QuestionForm(survey_id=survey_id)    
-    return render(request, 'dyform/edit_survey.html', {'form': form})
+        print("else............part") 
+        form = QuestionForm(survey=survey)  
+         
+    return render(request, 'dyform/edit_survey.html', {'form': form, 'survey': survey})

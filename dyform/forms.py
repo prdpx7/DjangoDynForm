@@ -10,14 +10,12 @@ class SurveyForm(forms.ModelForm):
         model = Survey
         fields = ['title', 'desc']
 
-class QuestionForm(forms.Form):
-    question = forms.CharField()
+class QuestionForm(forms.ModelForm):
     extra_question_count = forms.CharField(widget=forms.HiddenInput())
     class Meta:
         model = Question
-    def __init__(self, survey_id=None, *args, **kwargs):
-        survey = Survey.objects.get(pk=survey_id)
-        print(survey)
+        fields = ('title', )
+    def __init__(self, survey=None, *args, **kwargs):
         self.survey = survey
         extra_questions = kwargs.pop('extra', 0)
         super(QuestionForm, self).__init__(*args, **kwargs)

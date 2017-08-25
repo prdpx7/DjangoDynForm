@@ -19,8 +19,8 @@ $("#add-another").click(function() {
     // that many fields for validation
 })
 </script>
-<form action="{% url 'dyform:edit_survey' %}">
-    
+<form action="{% url 'dyform:edit_survey' survey.id %}" method="post">
+    {% csrf_token %}
 <div id="forms">
     {{ form.as_p }}
 </div>
