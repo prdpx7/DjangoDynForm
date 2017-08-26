@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 class Survey(models.Model):
     title = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
@@ -9,10 +10,12 @@ class Survey(models.Model):
             return Question.objects.none()
     def __str__(self):
         return self.title
-
+    def get_absolute_url(self):
+        return reverse('survey-update', kwargs={'pk': self.pk})
+    
 class Question(models.Model):
     survey = models.ForeignKey(Survey)
-    title = models.CharField(max_length=200, blank=True, null=True)
+    title = models.CharField(max_length=200, blank=False, null=False)
     def __str__(self):
         return self.title 
 
@@ -24,7 +27,7 @@ class Response(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question)
     response = models.ForeignKey(Response)
-    text = models.TextField(blank=True, null=True)
+    text = models.TextField(blank=False, null=False)
     def __str__(self):
         return self.question.title + "|" + self.text
 

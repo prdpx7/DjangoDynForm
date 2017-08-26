@@ -18,5 +18,5 @@ from django.contrib import admin
 import dyform
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dyform/', include('dyform.urls', namespace='dyform'))
+    url(r'', include('dyform.urls', namespace='dyform'))
 ]

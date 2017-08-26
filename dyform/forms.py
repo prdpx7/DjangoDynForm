@@ -4,12 +4,19 @@ from django.core.urlresolvers import reverse
 from django.dispatch import Signal
 from django.shortcuts import get_object_or_404
 from .models import Survey, Question, Response, Answer
-
+from django.forms import inlineformset_factory
 class SurveyForm(forms.ModelForm):
     class Meta:
         model = Survey
         fields = ['title', 'desc']
 
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        exclude = ()
+QuestionFormSet = inlineformset_factory(Survey, Question, form=QuestionForm, extra=1)
+# scratch implementation **not working
+"""
 class QuestionForm(forms.ModelForm):
     extra_question_count = forms.CharField(widget=forms.HiddenInput())
     class Meta:
@@ -27,20 +34,21 @@ class QuestionForm(forms.ModelForm):
         question.survey = self.survey
         question.save()
         data = {
-            'survey_id': response.survey.id,    
+            'survey_id': question.survey.id,    
             'questions': []
         }
-        for field_name, field_value in self.cleaned_data.iteritems():
-            if field_name.startswith('extra_question_'):
-                q = Question()
-                q.title = field_value
-            q.survey = survey
+        print(self.cleaned_data)
+        for field_name, field_value in enumerate(self.cleaned_data):
+            #if field_name.startswith('extra_question_'):
+            q = Question()
+            q.title = field_value
+            q.survey = self.survey
             q.save()
             data['questions'].append((q.id, q.title))
         #calling db_signal
         Signal(providing_args=["instance", "data"]).send(sender=Question, instance=question, data=data)
         return question
-
+"""
 class ResponseForm(forms.ModelForm):
     class Meta:
         model = Response
@@ -52,7 +60,7 @@ class ResponseForm(forms.ModelForm):
         super(ResponseForm, self).__init__(*args, **kwargs)
         data = kwargs.get('data')
         for idx, q in enumerate(survey.questions()):
-            print(idx,q)
+            print(idx, q)
             self.fields['question_%d' %q.pk] = forms.CharField(label=q.title,
                 widget=forms.Textarea)
             if data:
@@ -77,6 +85,3 @@ class ResponseForm(forms.ModelForm):
         #calling db_signal
         Signal(providing_args=["instance", "data"]).send(sender=Response, instance=response, data=data)
         return response
-
-
-

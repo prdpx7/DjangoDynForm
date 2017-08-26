@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block body %}
+
+    <h2>Here are all Surveys: </h2>
+    <div>
+        <ul>
+            <h3> existing surveys </h3>
+            {% for survey in object_list %}
+                <li><p> Title: {{ survey.title }}</p> 
+                     <p>Description: {{ survey.desc }} <p> 
+                    <a href="{% url 'dyform:survey-update' survey.pk %}">Edit</a>
+                </li>
+            {% empty %}
+                <li>No Survey yet.</li>
+            {% endfor %}
+
+        </ul>
+        </div>
+        <h2>
+            <a href="{% url 'dyform:survey-create' %}">create a new survey</a>
+        </h2>
+{% endblock %}
