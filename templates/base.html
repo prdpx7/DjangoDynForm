@@ -1,38 +1,17 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}MyAdvoForm{% endblock %}</title>
-    {% load staticfiles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>{% block title %}My amazing site{% endblock %}</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+ 
 </head>
+
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-
-        <!-- Header -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-        
-        <!-- Items -->
-        <div class="collapse navbar-collapse" id="topNavBar">
-            <ul class="nav navbar-nav navbar-right">
-              
-            </ul>
-        </div>
-
+<div id="content" class="container">
+    <div class="md-col-10">
+        {% block body %}{% endblock %}
     </div>
-</nav>
-{% block body %}
-{% endblock %}
+
+</div>
 </body>
 </html>
