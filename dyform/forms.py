@@ -14,6 +14,7 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         exclude = ()
+        
 QuestionFormSet = inlineformset_factory(Survey, Question, form=QuestionForm, extra=1)
 # scratch implementation **not working
 """
