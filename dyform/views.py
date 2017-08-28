@@ -12,9 +12,11 @@ def index(request):
 """
 class SurveyList(ListView):
     model = Survey
+
 class SurveyCreate(CreateView):
     model = Survey
     fields = ['title', 'desc']
+
 class SurveyUpdate(UpdateView):
     model = Survey
     success_url = '/'
@@ -40,7 +42,7 @@ class SurveyQuestionCreate(CreateView):
     model = Survey
     fields = ['title', 'desc']
     #template_name = 'dyform/edit_survey.html'
-    success_url = reverse_lazy('survey-list')
+    success_url = reverse_lazy('dyform:survey-list')
     def get_context_data(self, *args, **kwargs):
         print("buggggggggggg")
         print(self.__dict__)
@@ -61,10 +63,12 @@ class SurveyQuestionCreate(CreateView):
                 questions.instance = self.object
                 questions.save()
         return super(SurveyQuestionCreate, self).form_valid(form)
+
+
 class SurveyQuestionUpdate(UpdateView):
     model = Survey
     fields = ['title', 'desc']
-    success_url = reverse_lazy('survey-list')
+    success_url = reverse_lazy('dyform:survey-list')
 
     def get_context_data(self, **kwargs):
         data = super(SurveyQuestionUpdate, self).get_context_data(**kwargs)
