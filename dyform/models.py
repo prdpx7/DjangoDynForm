@@ -23,6 +23,7 @@ class Response(models.Model):
     survey = models.ForeignKey(Survey)
     def __str__(self):
         return "Responses from " + self.survey.title
+    
 
 class Answer(models.Model):
     question = models.ForeignKey(Question)

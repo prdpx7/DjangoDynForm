@@ -29,8 +29,7 @@ class ResponseForm(forms.ModelForm):
         data = kwargs.get('data')
         for idx, q in enumerate(survey.questions()):
             print(idx, q)
-            self.fields['question_%d' %q.pk] = forms.CharField(label=q.title,
-                widget=forms.Textarea)
+            self.fields['question_%d' %q.pk] = forms.CharField(label=q.title)
             if data:
                 self.fields['question_%d' %q.pk].initial = data.get('question_%d'%q.pk)
         print("init of form")

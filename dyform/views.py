@@ -68,8 +68,8 @@ class SurveyQuestionUpdate(UpdateView):
                 questions.save()
         return super(SurveyQuestionUpdate, self).form_valid(form)
 
-def survey_response(request, id):
-    survey = Survey.objects.get(id=id)
+def survey_response(request, pk):
+    survey = Survey.objects.get(pk=pk)
     if request.method == 'POST':
         form = ResponseForm(request.POST, survey=survey)
         if form.is_valid():
@@ -78,4 +78,5 @@ def survey_response(request, id):
     else:
         form = ResponseForm(survey=survey)
         print (form)
-    return render(request, 'dyform/survey_response.html', {'response_form': form, 'survey':survey})    
+    return render(request, 'dyform/survey_response.html', {'response_form': form, 'survey':survey})
+    

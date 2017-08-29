@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    Survey Analysis
+{% endblock title %}
+
+{% block body %}
+    <h3>Thank you for your Response</h3>
+    
+    <p>Total responses:</p>
+
+    <a href="{% 'dyform:survey-list' %}">Go back to main page</a>
+{% endblock body %}
