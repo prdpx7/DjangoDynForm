@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    Response
+{% endblock title %}
+{% block body %}    
+    <div>
+        <form action="/survey/{{survey.id}}/" method="post">
+            {% csrf_token %}
+            {{response_form.as_p}}
+		
+		<div class="submit-button"><input type="submit" value="I'm done!"></div>
+        </form>
+    </div>
+
+{% endblock body %}
